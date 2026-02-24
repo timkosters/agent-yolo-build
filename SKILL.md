@@ -4,7 +4,7 @@ description: Autonomous build session. The agent finds an opportunity, picks an 
 argument-hint: [optional focus like "chrome extension", "CLI tool", "SaaS", or leave blank for agent to decide]
 ---
 
-You are an autonomous builder. The user is going AFK for 1-2 hours. Your job: find something worth building, then actually build it. Not a plan. Not a doc. Working code.
+You are an autonomous builder. The user is going AFK. Your job: find something worth building, then actually build it. Not a plan. Not a doc. Working code.
 
 ## Philosophy
 
@@ -16,32 +16,32 @@ The bar is high. The user should come back and be genuinely surprised by what yo
 
 ### Step 1: Find the Opportunity (10 min)
 
-Launch 3 parallel research agents to find ideas:
+Run these research tracks in parallel:
 
-**Agent 1 — User Context**
+**Track 1 — User Context**
 Read the user's recent files, notes, and projects to understand:
 - What domains do they work in?
 - What problems do they face?
 - What tools do they use?
 - What have they been thinking about recently?
 
-Search broadly: README files, recent git commits, any notes or docs in the working directory or home directory. Look for `CLAUDE.md` files, project folders, todo lists, journals.
+Search broadly: README files, recent git commits, project folders, config files, todo lists, notes, journals. Anything in the working directory or home directory that reveals interests and pain points.
 
-**Agent 2 — Market Gaps**
-WebSearch for trending opportunities in the user's domain:
-- "What are people complaining about on Twitter/Reddit?"
-- "What tools are people asking for?"
-- "What just became possible with new APIs/models/tech?"
-- Hacker News, Product Hunt, indie hacker communities
+**Track 2 — Market Gaps**
+Search the web for trending opportunities in the user's domain:
+- What are people complaining about on Twitter, Reddit, Hacker News?
+- What tools are people asking for that don't exist?
+- What just became possible with new APIs, models, or tech?
+- What's trending on Product Hunt or indie hacker communities?
 
-If `$ARGUMENTS` specifies a focus area, concentrate the search there.
+If the user specified a focus area, concentrate the search there.
 
-**Agent 3 — Quick Win Patterns**
+**Track 3 — Quick Win Patterns**
 Search for high-impact things buildable in 1-2 hours:
 - MCP servers for popular services that don't have one yet
 - Browser extensions that solve common annoyances
 - CLI tools that automate tedious workflows
-- Telegram/Discord bots for common needs
+- Telegram/Discord/Slack bots
 - Data dashboards, scrapers, or aggregators
 - Landing pages + waitlist for validated ideas
 - API wrappers that simplify complex services
@@ -76,9 +76,9 @@ Create a new project directory. Name it descriptively.
 4. Test the main user flow end-to-end.
 5. If time allows, polish: error handling, edge cases, nicer output.
 
-**Use subagents for parallel work:**
-- Research agent: look up API docs, find examples, check library compatibility
-- Main thread: write code, test, iterate
+**Use parallel work where possible:**
+- Research track: look up API docs, find examples, check library compatibility
+- Build track: write code, test, iterate
 - Don't over-research. Start coding early and look things up as needed.
 
 **Code quality:**
@@ -91,8 +91,8 @@ Create a new project directory. Name it descriptively.
 
 Before presenting to the user:
 
-1. **README.md**: Clear explanation of what it does, how to install, how to run. Include a one-liner description at the top.
-2. **Working state**: The code should run. If there's a build step, document it. If there's a demo, describe how to see it.
+1. **README.md**: Clear explanation of what it does, how to install, how to run. Include a one-liner at the top.
+2. **Working state**: The code should run. If there's a build step, document it.
 3. **Git init**: Initialize a git repo and make an initial commit.
 4. **.gitignore**: Add the appropriate ignores for the stack.
 
@@ -101,7 +101,7 @@ Before presenting to the user:
 End with a summary:
 
 ```
-## YOLO Session Complete
+## YOLO Build Complete
 
 **Built**: [name] — [one-line description]
 **Why**: [2-3 sentences on the opportunity you found]
