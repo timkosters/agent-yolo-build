@@ -18,7 +18,7 @@ The bar is high. The user should come back and be genuinely surprised by what yo
 
 Run these research tracks in parallel:
 
-**Track 1 — User Context**
+**Track 1 — User Context** (highest priority)
 Read the user's recent files, notes, and projects to understand:
 - What domains do they work in?
 - What problems do they face?
@@ -26,6 +26,8 @@ Read the user's recent files, notes, and projects to understand:
 - What have they been thinking about recently?
 
 Search broadly: README files, recent git commits, project folders, config files, todo lists, notes, journals. Anything in the working directory or home directory that reveals interests and pain points.
+
+Also note what the user has **already built** — you must avoid rebuilding something that exists in their projects.
 
 **Track 2 — Market Gaps**
 Search the web for trending opportunities in the user's domain:
@@ -37,23 +39,24 @@ Search the web for trending opportunities in the user's domain:
 If the user specified a focus area, concentrate the search there.
 
 **Track 3 — Quick Win Patterns**
-Search for high-impact things buildable in 1-2 hours:
-- MCP servers for popular services that don't have one yet
-- Browser extensions that solve common annoyances
-- CLI tools that automate tedious workflows
-- Telegram/Discord/Slack bots
-- Data dashboards, scrapers, or aggregators
-- Landing pages + waitlist for validated ideas
-- API wrappers that simplify complex services
-- AI-powered micro-tools (summarizers, classifiers, generators)
+Search for high-impact things buildable in 1-2 hours. Prefer things that:
+- Don't require API keys the user doesn't already have
+- Work with the user's existing tech stack
+- Could be shared publicly (open source, blog post, tweet)
+
+Examples: MCP servers, browser extensions, CLI tools, bots, data dashboards, scrapers, landing pages, API wrappers, AI micro-tools.
 
 ### Step 2: Pick ONE Thing (5 min)
 
-From the research, pick exactly one thing to build. Criteria (in order):
+**Resolve conflicts**: If the tracks point in different directions, user context (Track 1) wins. Build something connected to what the user actually cares about, not just what's trending.
+
+**Show your reasoning**: Before picking, list 3 ideas you considered and why you eliminated 2 of them. One line each.
+
+Then pick one. Criteria (in order):
 
 1. **Can you actually finish it?** Be ruthless about scope. An ugly working thing beats a beautiful half-built thing.
-2. **Is it novel?** Don't rebuild something that already exists and works fine.
-3. **Would someone use it?** Solve a real problem, even a small one.
+2. **Is it novel?** Don't rebuild something that already exists in the user's projects or works fine elsewhere.
+3. **Would you post it on Twitter or Product Hunt?** That's the real "would someone use it" bar.
 4. **Is it interesting?** The user should be excited to see it, not bored.
 
 Present your choice in 3-4 lines: what you're building, why it's worth building, and what "done" looks like.
