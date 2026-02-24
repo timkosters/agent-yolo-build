@@ -1,17 +1,19 @@
-# /yolo — Let Your Agent Build While You Sleep
+# /yolo — Autonomous Agent Sessions
 
-A skill that turns your AI coding agent into an autonomous builder. Run `/yolo`, walk away, come back to a working MVP.
+Run `/yolo`, walk away, come back to results. Your AI coding agent picks a goal and works on it while you're gone.
 
-Inspired by [the overnight build pattern](https://x.com/bobbyhansenjr/status/2017585853418152313) — give your agent a YOLO task before bed, wake up to something shipped.
+Inspired by [the overnight build pattern](https://x.com/bobbyhansenjr/status/2017585853418152313).
 
-## What it does
+## Modes
 
-1. **Scans your projects and the web** to find something worth building
-2. **Picks one idea** based on novelty, feasibility, and usefulness
-3. **Actually builds it** — working code, not a plan or a doc
-4. **Presents the result** with a README, install instructions, and next steps
+| Command | What the agent does |
+|---|---|
+| `/yolo` or `/yolo build` | Finds an opportunity and builds a working MVP from scratch |
+| `/yolo refactor` | Finds the highest-leverage improvement in your codebase |
+| `/yolo research [topic]` | Deep research with sources, not just a summary |
+| `/yolo explore` | Reads your notes and projects, surfaces connections you missed |
 
-The agent works in a sandbox: new project directory, no modifications to your existing code, no outbound actions.
+You can also pass a focus: `/yolo build chrome extension` or `/yolo research state of MCP servers`.
 
 ## Install
 
@@ -19,89 +21,56 @@ The agent works in a sandbox: new project directory, no modifications to your ex
 
 ```bash
 mkdir -p ~/.claude/skills/yolo
-cp SKILL.md ~/.claude/skills/yolo/SKILL.md
+curl -o ~/.claude/skills/yolo/SKILL.md \
+  https://raw.githubusercontent.com/timkosters/agent-yolo-build/main/SKILL.md
 ```
 
 Or clone and symlink:
 
 ```bash
-git clone https://github.com/timourkosters/agent-yolo-build.git
+git clone https://github.com/timkosters/agent-yolo-build.git
 mkdir -p ~/.claude/skills
 ln -s "$(pwd)/agent-yolo-build" ~/.claude/skills/yolo
 ```
 
 ### Other agents
 
-The skill is a single markdown file (`SKILL.md`) with structured instructions any coding agent can follow. Copy it into whatever prompt/skill format your agent uses, or paste it directly as a system prompt.
-
-## Usage
-
-```
-/yolo
-```
-
-Optionally focus the session:
-
-```
-/yolo chrome extension
-/yolo CLI tool for my workflow
-/yolo MCP server
-/yolo something with the Hacker News API
-```
-
-Then walk away. The agent will:
-- Research opportunities in your domain
-- Pick the most promising idea
-- Build a working MVP in a new project directory
-- Summarize what it built when you come back
-
-## Requirements
-
-- A coding agent with file write access and web search (Claude Code, Cursor, Windsurf, Codex, etc.)
-- Recommended: run with auto-approve / skip permissions so the agent can work uninterrupted
-- Web search access for the research phase
+`SKILL.md` is a single markdown file with structured instructions. Copy it into whatever prompt or skill format your agent uses, or paste it as a system prompt. It works with any coding agent that can read files, search the web, and write code.
 
 ## How it works
 
-1. **Research phase** (10 min): Three parallel tracks scan your local context, trending market gaps, and quick-win build patterns
-2. **Decision phase** (5 min): Pick one thing, state why, start building
-3. **Build phase** (60-90 min): Write actual code, test it, iterate
-4. **Ship phase**: README, git init, present results
-
-Everything goes in a new directory. Your existing projects are never touched.
+1. **Understand** (10 min): Scans your projects, notes, and recent work to learn your context
+2. **Target** (10 min): Researches opportunities (for build) or pain points (for refactor) or sources (for research)
+3. **Commit** (5 min): Lists 3 candidates, eliminates 2 with reasons, picks one
+4. **Work** (60-90 min): Does the actual work. Code, tests, iteration.
+5. **Present**: Summary of what was done, how to use it, what's next
 
 ## Safety
 
-- Creates new project directories only — never modifies existing code
-- No outbound actions (no emails, messages, posts, API calls on your behalf)
-- No paid services or financial commitments
-- No global package installs or system config changes
-- No git push — repos stay local until you decide to publish
-- No secrets hardcoded — uses environment variables
+All modes:
+- No outbound actions (no emails, messages, posts)
+- No paid services or purchases
+- No git push (you decide when to publish)
+- No global installs or system config changes
+- No hardcoded secrets
 
-## Examples of what it might build
+Mode-specific:
+- `build` creates a new directory, never touches existing projects
+- `refactor` works on a new branch, never pushes or force-overwrites
 
-- An MCP server for a service that doesn't have one yet
-- A CLI tool that automates something tedious in your workflow
-- A browser extension that fixes a common annoyance
-- A data dashboard pulling from public APIs
-- A Telegram/Discord/Slack bot
-- A landing page + waitlist for a validated idea
-- An AI-powered micro-tool (summarizer, classifier, search)
+## Requirements
+
+- A coding agent with file access and web search (Claude Code, Cursor, Windsurf, Codex, etc.)
+- Auto-approve or skip-permissions mode recommended so the agent can work uninterrupted
+- Internet connection for the research phase
 
 ## Customization
 
-Edit `SKILL.md` to:
-- Change the default focus areas
-- Adjust scope expectations (more/less ambitious)
-- Add preferred tech stacks
-- Add your own safety rules
-
-It's just a markdown file. Fork it, make it yours.
-
-## Credits
-
-Concept inspired by [Bobby Hansen Jr.](https://x.com/bobbyhansenjr) and the overnight autonomous build movement.
+`SKILL.md` is just a markdown file. Fork it to:
+- Add your own modes
+- Change the default tech stack preferences
+- Adjust scope and ambition level
+- Add custom safety rules
 
 ## License
 

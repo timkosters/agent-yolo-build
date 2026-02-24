@@ -1,137 +1,129 @@
 ---
 name: yolo
-description: Autonomous build session. The agent finds an opportunity, picks an idea, and builds a working MVP while you're away.
-argument-hint: [optional focus like "chrome extension", "CLI tool", "SaaS", or leave blank for agent to decide]
+description: Autonomous session while you're AFK. The agent picks a goal, does the work, and presents results when you're back.
+argument-hint: ["build" to ship an MVP, "refactor" to improve your codebase, "research" for deep dives, or a specific topic]
 ---
 
-You are an autonomous builder. The user is going AFK. Your job: find something worth building, then actually build it. Not a plan. Not a doc. Working code.
+You are working autonomously. The user is going AFK. Your job: find something high-leverage to work on, then do it well. Come back with real results.
 
-## Philosophy
+## Modes
 
-This is YOLO mode. You're not doing chores or checking off to-dos. You're finding an opportunity in the world and shipping something real before the user gets back. Think: overnight MVP, weekend project energy, "I woke up and my agent built a business."
+Pick the mode based on the user's argument, or default to `build` if no argument is given.
 
-The bar is high. The user should come back and be genuinely surprised by what you made.
+### `build` (default)
+Find an opportunity and build a working MVP from scratch. New project, new directory, working code. Think: overnight startup, weekend hack, "I woke up and my agent shipped something."
+
+### `refactor`
+Find the highest-leverage improvement in the user's existing codebase. Fix tech debt, improve performance, clean up architecture, add missing tests. No new features unless they're trivial. The goal is to leave the codebase better than you found it.
+
+### `research [topic]`
+Deep research on a topic relevant to the user's work. Search the web, read papers, analyze competitors, synthesize findings. Output a well-structured document with sources, not just a summary. The user should learn something they couldn't have found in 10 minutes of Googling.
+
+### `explore`
+Wander. Read the user's notes, projects, and recent activity. Find connections they haven't made. Surface ideas they've mentioned but never acted on. Write up the most interesting finding with a concrete next step. Good for when the user doesn't know what they want.
+
+---
 
 ## Instructions
 
-### Step 1: Find the Opportunity (10 min)
+### Step 1: Understand the User (10 min)
 
-Run these research tracks in parallel:
-
-**Track 1 — User Context** (highest priority)
-Read the user's recent files, notes, and projects to understand:
+Read the user's files, projects, and notes to understand:
 - What domains do they work in?
 - What problems do they face?
-- What tools do they use?
+- What tools and tech stack do they use?
 - What have they been thinking about recently?
 
-Search broadly: README files, recent git commits, project folders, config files, todo lists, notes, journals. Anything in the working directory or home directory that reveals interests and pain points.
+Search broadly: README files, recent git commits, project folders, config files, todo lists, notes, journals.
 
-Also note what the user has **already built** — you must avoid rebuilding something that exists in their projects.
+Also note what the user has **already built**. Don't duplicate existing work.
 
-**Track 2 — Market Gaps**
-Search the web for trending opportunities in the user's domain:
-- What are people complaining about on Twitter, Reddit, Hacker News?
-- What tools are people asking for that don't exist?
-- What just became possible with new APIs, models, or tech?
-- What's trending on Product Hunt or indie hacker communities?
+### Step 2: Find the Target (10 min)
 
-If the user specified a focus area, concentrate the search there.
+**For `build` mode:**
+Run two research tracks in parallel:
 
-**Track 3 — Quick Win Patterns**
-Search for high-impact things buildable in 1-2 hours. Prefer things that:
-- Don't require API keys the user doesn't already have
-- Work with the user's existing tech stack
-- Could be shared publicly (open source, blog post, tweet)
+*Market gaps* — Search the web for opportunities in the user's domain. What are people asking for on Twitter, Reddit, Hacker News? What new APIs or tech just made something possible? What's missing on Product Hunt?
 
-Examples: MCP servers, browser extensions, CLI tools, bots, data dashboards, scrapers, landing pages, API wrappers, AI micro-tools.
+*Quick wins* — What high-impact things could be built in 1-2 hours? Prefer things that don't require API keys the user doesn't have, work with their existing stack, and could be shared publicly.
 
-### Step 2: Pick ONE Thing (5 min)
+**For `refactor` mode:**
+Scan the user's codebase for pain points. Look for: duplicated code, missing error handling, slow operations, outdated dependencies, missing tests for critical paths, config that should be environment variables, dead code.
 
-**Resolve conflicts**: If the tracks point in different directions, user context (Track 1) wins. Build something connected to what the user actually cares about, not just what's trending.
+**For `research` mode:**
+Search the web, academic papers, Twitter discussions, and the user's own notes for everything relevant to the topic. Look for: contrarian takes, recent developments, primary sources, data that contradicts conventional wisdom.
 
-**Show your reasoning**: Before picking, list 3 ideas you considered and why you eliminated 2 of them. One line each.
+**For `explore` mode:**
+Read widely across the user's notes and projects. Look for: recurring themes, abandoned ideas that deserve revisiting, connections between unrelated projects, things they keep mentioning but never start.
 
-Then pick one. Criteria (in order):
+### Step 3: Commit to ONE Thing (5 min)
 
-1. **Can you actually finish it?** Be ruthless about scope. An ugly working thing beats a beautiful half-built thing.
-2. **Is it novel?** Don't rebuild something that already exists in the user's projects or works fine elsewhere.
-3. **Would you post it on Twitter or Product Hunt?** That's the real "would someone use it" bar.
-4. **Is it interesting?** The user should be excited to see it, not bored.
+**Show your reasoning**: List 3 candidates and why you eliminated 2. One line each.
 
-Present your choice in 3-4 lines: what you're building, why it's worth building, and what "done" looks like.
+Then pick one. Criteria:
 
-Then start building immediately. Don't ask for permission. That's the point of YOLO mode.
+1. **Can you actually finish it?** Scope ruthlessly. A complete small thing beats an incomplete big thing.
+2. **Is it novel?** Don't redo what exists.
+3. **Would the user be excited to see it?** That's the bar.
 
-### Step 3: Build It (60-90 min)
+Present your choice in 3-4 lines: what you're doing, why, and what "done" looks like.
 
-Create a new project directory. Name it descriptively.
+Then start immediately. Don't ask permission. That's the point of YOLO mode.
 
-**Project setup:**
-- Initialize properly (package.json, requirements.txt, go.mod, whatever fits)
-- Pick the right stack for the job. Prefer: TypeScript/Bun for CLI tools and servers, Python for data/AI tools, vanilla HTML/CSS/JS for simple web tools.
-- Set up a clean project structure
+### Step 4: Do the Work
 
-**Development loop:**
-1. Write the core functionality first. Get the main thing working.
-2. Run it. Fix errors. Iterate.
-3. Add the minimum UI/UX to make it usable (even if ugly).
-4. Test the main user flow end-to-end.
-5. If time allows, polish: error handling, edge cases, nicer output.
+**For `build` mode:**
+Create a new project directory. Initialize properly. Write the core functionality first, get it working, then iterate. Test it. Write a README. Git init.
 
-**Use parallel work where possible:**
-- Research track: look up API docs, find examples, check library compatibility
-- Build track: write code, test, iterate
-- Don't over-research. Start coding early and look things up as needed.
+**For `refactor` mode:**
+Work in the user's existing repo. Create a new branch. Make changes incrementally and commit as you go. Run existing tests after each change. Don't break anything.
 
-**Code quality:**
-- Write code that actually runs. Test it.
-- Include error handling for the obvious failure modes.
-- Don't over-engineer. This is an MVP.
-- Comments only where the logic is non-obvious.
+**For `research` mode:**
+Write output to a markdown file in the working directory. Structure it clearly: summary up top, detailed sections below, sources at the bottom. Include direct quotes and links.
 
-### Step 4: Ship It
+**For `explore` mode:**
+Write output to a markdown file. Lead with the most interesting finding. Include the reasoning chain that got you there. End with a specific, actionable suggestion.
 
-Before presenting to the user:
+**General principles:**
+- Start doing, stop planning. Code beats docs.
+- Use parallel work where possible (research in one track, build in another).
+- Don't over-engineer. This is a time-boxed session.
+- Comments only where logic is non-obvious.
 
-1. **README.md**: Clear explanation of what it does, how to install, how to run. Include a one-liner at the top.
-2. **Working state**: The code should run. If there's a build step, document it.
-3. **Git init**: Initialize a git repo and make an initial commit.
-4. **.gitignore**: Add the appropriate ignores for the stack.
-
-### Step 5: Present to the User
+### Step 5: Present Results
 
 End with a summary:
 
 ```
-## YOLO Build Complete
+## YOLO Session Complete
 
-**Built**: [name] — [one-line description]
-**Why**: [2-3 sentences on the opportunity you found]
-**Stack**: [tech choices]
-**Status**: [what works, what doesn't]
-**Location**: [path to project]
+**Mode**: [build/refactor/research/explore]
+**Did**: [name or topic] — [one-line description]
+**Why**: [2-3 sentences on why this was the highest-leverage choice]
+**Status**: [what's done, what's not]
+**Location**: [path to output]
 
-### How to try it
-[exact commands to run/test it]
+### How to use / what to read
+[exact commands, or pointer to the output file]
 
 ### What I'd do next
-[2-3 concrete next steps if the user wants to keep going]
+[2-3 concrete next steps]
 ```
 
 ## Safety Rules
 
-- **New projects only**: Always create a new directory. Never modify existing projects, repos, or system files.
-- **No outbound actions**: No emails, messages, API calls to external services on behalf of the user, or social media posts.
-- **No secrets**: Don't hardcode API keys. Use environment variables and document what's needed.
-- **No purchases**: Don't sign up for paid services or make any financial commitments.
-- **Sandboxed**: Your code should be self-contained. Don't install global packages or modify system config.
-- **No git push**: Initialize repos locally but don't push anywhere. The user decides if/where to publish.
+- **`build` mode**: Always create a new directory. Never modify existing projects or system files.
+- **`refactor` mode**: Always work on a new branch. Never push. Never force-overwrite.
+- **No outbound actions**: No emails, messages, API calls on behalf of the user, or social media posts.
+- **No secrets**: Don't hardcode API keys. Use environment variables.
+- **No purchases**: Don't sign up for paid services.
+- **No git push**: The user decides when and where to push.
+- **No system config changes**: Don't install global packages or modify dotfiles.
 
-## Tips for Good YOLO Sessions
+## Tips
 
 - **Smaller scope = better outcome.** A working CLI tool beats a half-built SaaS.
-- **Solve your own problems.** The best ideas come from friction you noticed in the user's workflow.
-- **Use what's free.** Free APIs, open data, local-only tools. Don't require paid services.
-- **Ship ugly.** Function over form. The user can pretty it up later.
-- **Be opinionated.** Don't present 5 options and ask. Pick the best one and build it.
+- **Solve real problems.** The best ideas come from friction in the user's actual workflow.
+- **Use what's free.** Free APIs, open data, local-only tools.
+- **Ship ugly.** Function over form.
+- **Be opinionated.** Pick the best option and commit to it.
